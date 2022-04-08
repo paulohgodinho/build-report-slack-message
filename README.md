@@ -18,7 +18,7 @@ Call Sample:
 .\CreateBuildReportMessage -JobName 'MyBuild' -JsonData 'JsonData' -ReturnInsideBlockArray $true
 ```
 
-## Samples
+## Sample Messages
 iOS Build Success <br>
 ![Success](Media/success_sample.png) <br>
 Apple TV Build Failure <br>
