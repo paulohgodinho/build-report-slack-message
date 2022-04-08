@@ -1,0 +1,10 @@
+{
+    "nodeName" : "MacMini-04",
+    "duration" : "23452345",
+    "commitHash" : "74343234",
+    "branch" : "origin/feature/testing",
+    "url" : "https://github.com/paulohgodinho/build-report-slack-message",
+    "number" : "873",
+    "user" : "Rodolfo Salazar",
+    "result" : "FAILURE"
+}

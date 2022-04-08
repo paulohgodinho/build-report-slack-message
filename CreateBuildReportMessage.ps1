@@ -3,7 +3,7 @@ param (
     [string] $JobName,
     [Parameter(Mandatory=$true, HelpMessage="JSON data to get the information from")] 
     [string] $JsonData,
-    [Parameter(Mandatory=$true, HelpMessage="Should return this item ready to be sent to Slack? Default is True")] 
+    [Parameter(Mandatory=$false, HelpMessage="Should return this item ready to be sent to Slack? Default is True")] 
     [boolean] $ReturnInsideBlockArray = $true
 
 )
