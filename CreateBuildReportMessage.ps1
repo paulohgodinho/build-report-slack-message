@@ -42,24 +42,24 @@ function SetVars {
         $platform
     )
     
-    $jobDuration = [timespan]::FromMilliseconds($jobData.duration).ToString("hh\:mm\:ss")
+    $jobDuration = [timespan]::FromMilliseconds($jobData.job_duration).ToString("hh\:mm\:ss")
 
     $color = 'red'
-    switch ($jobData.result.ToLower()) {
+    switch ($jobData.job_result.ToLower()) {
         'success' { $color = 'green' }
         'aborted' { $color = 'blue' }
         'failure' { $color = 'red' }
     }
 
-    $global:item_MachineUsed = $jobData.nodeName
+    $global:item_MachineUsed = $jobData.job_nodeName
     $global:item_TimeTook    = $jobDuration
     $global:item_Image       = "https://raw.githubusercontent.com/paulohgodinho/build-report-slack-message/main/AcessoryImages/$($jobData.imageName)_$($color).png"
-    $global:item_SHA1        = $jobData.commitHash
-    $global:item_URL         = $jobData.url
-    $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.result)"
-    $global:item_BuildNumber = $jobData.number
-    $global:item_Branch      = $jobData.branch
-    $global:item_extraText   = "\n By: $($jobData.user)"
+    $global:item_SHA1        = $jobData.job_commitHash
+    $global:item_URL         = $jobData.job_url
+    $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.job_result)"
+    $global:item_BuildNumber = $jobData.job_number
+    $global:item_Branch      = $jobData.job_branch
+    $global:item_extraText   = "\n By: $($jobData.job_user)"
 }
 
 $itemTemplate = Get-Content -Path (Join-Path -Path $PSScriptRoot -ChildPath "/BlockKitTemplates/item.md") -Raw
