@@ -42,10 +42,15 @@ function SetVars {
     $jobDuration = [timespan]::FromMilliseconds($jobData.job_duration).ToString("hh\:mm\:ss")
 
     $color = 'red'
-    switch ($jobData.job_result.ToLower()) {
-        'success' { $color = 'green' }
-        'aborted' { $color = 'blue' }
-        'failure' { $color = 'red' }
+    $result = $jobData.job_result.ToLower()
+    if($result -eq 'success') {
+        $color = 'green'
+    }
+    if($result -eq 'aborted') {
+        $color = 'blue'
+    }
+    if($result -eq 'failure') {
+        $color = 'red'
     }
 
     $global:item_MachineUsed = $jobData.job_nodeName

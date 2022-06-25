@@ -11,7 +11,7 @@ pipeline {
         stage('Setup')
         {
             steps {
-                echo "Sending ${params.PROJECT_NAME} Nightly Build Report Message"
+                echo "Sending ${params.PLATFORM} Nightly Build Report Message"
             }
         }
         stage('Copying Artifacts from Upstream')
@@ -28,6 +28,7 @@ pipeline {
             steps {
                 script {
                     def jsonData = readFile "${env.WORKSPACE}/./jobData_${params.PLATFORM}.json"
+                    echo "${jsonData}"
                     pwsh """
                     \$message = ./CreateBuildReportMessage.ps1 -JobName ${params.PLATFORM}
                     Out-File -Path ./message.txt -InputObject \$message -Force
