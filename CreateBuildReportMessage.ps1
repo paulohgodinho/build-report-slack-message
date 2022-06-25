@@ -53,7 +53,7 @@ function SetVars {
 
     $global:item_MachineUsed = $jobData.nodeName
     $global:item_TimeTook    = $jobDuration
-    $global:item_Image       = "https://raw.githubusercontent.com/paulohgodinho/build-report-slack-message/main/AcessoryImages/$($platform)_$($color).png"
+    $global:item_Image       = "https://raw.githubusercontent.com/paulohgodinho/build-report-slack-message/main/AcessoryImages/$($jobData.imageName)_$($color).png"
     $global:item_SHA1        = $jobData.commitHash
     $global:item_URL         = $jobData.url
     $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.result)"

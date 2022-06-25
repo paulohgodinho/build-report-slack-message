@@ -1,0 +1,40 @@
+pipeline {
+    agent { label 'ubuntu-with-tools' }
+
+    parameters {
+        string(name: 'PLATFORM', defaultValue: 'none', description: 'Name of the project')
+        string(name: 'CALLED_BY', defaultValue: 'none', description: 'project id of who called this one, eg. hc2-client-win64')
+        string(name: 'SLACK_WEBHOOK', defaultValue: 'none', description: 'Target webook to send the message to')
+    }
+
+    stages {
+        stage('Setup')
+        {
+            steps {
+                echo "Sending ${params.PROJECT_NAME} Nightly Build Report Message"
+            }
+        }
+        stage('Copying Artifacts from Upstream')
+        {
+            steps {
+                    copyArtifacts filter: '*.json', projectName: "${params.CALLED_BY}", selector: upstream()
+            }
+        }
+        stage('Send Message')
+        {
+            when {
+                expression { params.SLACK_WEBHOOK != 'none' }
+            }
+            steps {
+                script {
+                    def jsonData = readFile "${env.WORKSPACE}/./jobData_${params.PLATFORM}.json"
+                    pwsh """
+                    \$message = SlackMessageBuildReport/CreateBuildResultMessage.ps1 -JobName ${params.PLATFORM} -JsonData ${jsonData}
+                    Out-File -Path ./message.txt -InputObject \$message -Force
+                    Invoke-RestMethod -Uri "${params.SLACK_WEBHOOK}" -Method Post -ContentType 'application/json' -Body \$message
+                    """
+                }
+            }
+        }
+    }
+}
