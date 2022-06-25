@@ -43,13 +43,13 @@ function SetVars {
 
     $color = 'red'
     $result = $jobData.job_result.ToLower()
-    if($result -eq 'success') {
+    if($result.Contains("success")) {
         $color = 'green'
     }
-    if($result -eq 'aborted') {
+    if($result.Contains("aborted")) {
         $color = 'blue'
     }
-    if($result -eq 'failure') {
+    if($result.Contains("failure")) {
         $color = 'red'
     }
 
