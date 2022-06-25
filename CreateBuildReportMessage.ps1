@@ -60,7 +60,7 @@ function SetVars {
     $global:item_URL         = $jobData.job_url
     $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.job_result)"
     $global:item_BuildNumber = $jobData.job_number
-    $global:item_Branch      = $jobData.job_branch
+    $global:item_Branch      = $result #$jobData.job_branch
     $global:item_extraText   = "\n By: $($jobData.job_user)"
 }
 
