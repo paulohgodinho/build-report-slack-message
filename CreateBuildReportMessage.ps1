@@ -10,14 +10,13 @@ function CheckInputJson {
     param ( $inputJson)
 
     $necessaryProps = @(
-        'nodeName',
-        'duration',
-        'commitHash',
-        'branch'
-        'url',
-        'number',
-        'user',
-        'result'
+        'job_nodeName',
+        'job_duration',
+        'job_commitHash',
+        'job_branch'
+        'job_url',
+        'job_number',
+        'job_result'
     )
 
     $hasError = $false
