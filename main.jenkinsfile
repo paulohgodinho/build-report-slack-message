@@ -29,7 +29,7 @@ pipeline {
                 script {
                     def jsonData = readFile "${env.WORKSPACE}/./jobData_${params.PLATFORM}.json"
                     pwsh """
-                    \$message = CreateBuildResultMessage.ps1 -JobName ${params.PLATFORM}
+                    \$message = ./CreateBuildReportMessage.ps1 -JobName ${params.PLATFORM}
                     Out-File -Path ./message.txt -InputObject \$message -Force
                     Invoke-RestMethod -Uri "${params.SLACK_WEBHOOK}" -Method Post -ContentType 'application/json' -Body \$message
                     """
