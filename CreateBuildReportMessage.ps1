@@ -77,7 +77,7 @@ $jsonFileName = "./jobData_$JobName.json"
 $jobData = Get-Content -Path "$jsonFileName" | ConvertFrom-Json
 CheckInputJson -InputJson $jobData
 
-Write-Output $jobData
+Write-Host $jobData
 
 SetVars -jobData $jobData -platform "$JobName"
 $itemBlock = $ExecutionContext.InvokeCommand.ExpandString($itemTemplate)
