@@ -33,6 +33,7 @@ pipeline {
                     \$message = ./CreateBuildReportMessage.ps1 -JobName ${params.PLATFORM}
                     Out-File -Path ./message.txt -InputObject \$message -Force
                     Invoke-RestMethod -Uri "${params.SLACK_WEBHOOK}" -Method Post -ContentType 'application/json' -Body \$message
+                    Write-Output \$message
                     """
                 }
             }
