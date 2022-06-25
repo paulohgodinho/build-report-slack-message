@@ -42,15 +42,10 @@ function SetVars {
     $jobDuration = [timespan]::FromMilliseconds($jobData.job_duration).ToString("hh\:mm\:ss")
 
     $color = 'red'
-    $result = $jobData.job_result.ToLower()
-    if($result.Contains("success")) {
-        $color = 'green'
-    }
-    if($result.Contains("aborted")) {
-        $color = 'blue'
-    }
-    if($result.Contains("failure")) {
-        $color = 'red'
+    switch ($jobData.job_result.ToLower()) {
+        'success' { $color = 'green' }
+        'aborted' { $color = 'blue' }
+        'failure' { $color = 'red' }
     }
 
     $global:item_MachineUsed = $jobData.job_nodeName
@@ -60,7 +55,7 @@ function SetVars {
     $global:item_URL         = $jobData.job_url
     $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.job_result)"
     $global:item_BuildNumber = $jobData.job_number
-    $global:item_Branch      = $result #$jobData.job_branch
+    $global:item_Branch      = $jobData.job_branch
     $global:item_extraText   = "\n By: $($jobData.job_user)"
 }
 
