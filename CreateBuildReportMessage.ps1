@@ -1,8 +1,6 @@
 param (
     [Parameter(Mandatory=$true, HelpMessage="Platform used to get json and make message")] 
     [string] $JobName,
-    [Parameter(Mandatory=$true, HelpMessage="JSON data to get the information from")] 
-    [string] $JsonData,
     [Parameter(Mandatory=$false, HelpMessage="Should return this item ready to be sent to Slack? Default is True")] 
     [boolean] $ReturnInsideBlockArray = $true
 
@@ -53,7 +51,7 @@ function SetVars {
 
     $global:item_MachineUsed = $jobData.job_nodeName
     $global:item_TimeTook    = $jobDuration
-    $global:item_Image       = "https://raw.githubusercontent.com/paulohgodinho/build-report-slack-message/main/AcessoryImages/$($jobData.job_imagename)_$($color).png"
+    $global:item_Image       = "https://raw.githubusercontent.com/paulohgodinho/build-report-slack-message/main/AcessoryImages/$($jobData.job_imageName)_$($color).png"
     $global:item_SHA1        = $jobData.job_commitHash
     $global:item_URL         = $jobData.job_url
     $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.job_result)"
@@ -70,8 +68,11 @@ if($null -eq $itemTemplate || $null -eq $divider) {
     throw
 }
 
+$jsonFileName = "./jobData_$JobName.json"
+$JsonData = Get-Content -Path $jsonFileName | ConvertFrom-Json
+
 if((Test-Json -Json $JsonData) -eq $false) {
-    Write-Error 'Not able to parse Input String to Json'
+    Write-Error "Not able to parse $jsonFileName file to Json"
     throw
 }
 
