@@ -69,14 +69,13 @@ if($null -eq $itemTemplate || $null -eq $divider) {
 }
 
 $jsonFileName = "./jobData_$JobName.json"
-$JsonData = Get-Content -Path "$jsonFileName" | ConvertFrom-Json
 
 # if((Test-Json -Json $JsonData) -eq $false) {
 #     Write-Error "Not able to parse $jsonFileName file to Json"
 #     throw
 # }
 
-$jobData = $JsonData | ConvertFrom-Json
+$jobData = Get-Content -Path "$jsonFileName" | ConvertFrom-Json
 CheckInputJson -InputJson $jobData
 
 SetVars -jobData $jobData -platform "$JobName"
