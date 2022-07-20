@@ -56,7 +56,7 @@ function SetVars {
     $global:item_MainText    = "$($platform.ToUpper()) Build $($jobData.job_result)"
     $global:item_BuildNumber = $jobData.job_number
     $global:item_Branch      = $jobData.job_branch
-    $global:item_extraText   = "$job_extraText \n By: $($jobData.job_user)"
+    $global:item_extraText   = "$($jobData.job_extraText) \n By: $($jobData.job_user)"
 }
 
 $itemTemplate = Get-Content -Path (Join-Path -Path $PSScriptRoot -ChildPath "/BlockKitTemplates/item.md") -Raw
